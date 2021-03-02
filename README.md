@@ -1,4 +1,4 @@
-[![Build Status](https://ci.centos.org/job/devtools-fabric8-analytics-stack-report-ui-f8a-build-master/badge/icon)](https://ci.centos.org/job/devtools-fabric8-analytics-stack-report-ui-f8a-build-master/)
+[![CI](https://github.com/fabric8-analytics/fabric8-analytics-stack-report-ui/actions/workflows/ci-build.yml/badge.svg)](https://github.com/fabric8-analytics/fabric8-analytics-stack-report-ui/actions/workflows/ci-build.yml)
 
 # Fabric8-Analytics Stack Analysis Report
 
