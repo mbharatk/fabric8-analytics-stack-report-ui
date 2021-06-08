@@ -18,6 +18,7 @@ import {
   SplitItem,
   Title,
 } from "@patternfly/react-core";
+import "./addons.scss";
 import Utils from "src/app/utils/utility";
 import GithubStats from "./github_stats";
 import ComposableTableMisc from "./addonstable";
@@ -88,17 +89,17 @@ const DrawerFC = () => {
             <Flex key="2" direction={{ default: "column" }}>
               <FlexItem spacer={{ default: "spacerNone" }}>
                 <Split>
-                  <SplitItem>
+                  <Title headingLevel="h6" size="md">
                     Latest Version
-                    <div>{drawerData.latest_version}</div>
-                  </SplitItem>
+                    <div className="font">{drawerData.latest_version}</div>
+                  </Title>
                 </Split>
               </FlexItem>
               <FlexItem spacer={{ default: "spacerNone" }}>
                 <Split>
                   <Title headingLevel="h6" size="md">
                     Licence(s) used
-                    <div>{drawerData.licenses.toString()}</div>
+                    <div className="font">{drawerData.licenses.toString()}</div>
                   </Title>
                 </Split>
               </FlexItem>
