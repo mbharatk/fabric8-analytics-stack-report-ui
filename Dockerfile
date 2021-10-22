@@ -1,7 +1,5 @@
 FROM registry.centos.org/centos/centos:7
 
-MAINTAINER Jyasveer Gotta <jgotta@redhat.com>
-
 RUN mkdir -p /opt/scripts /var/www/html
 
 ADD dist /var/www/html/
