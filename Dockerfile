@@ -2,11 +2,9 @@ FROM registry.centos.org/centos/centos:7
 
 LABEL Codeready dependency analytics
 
-RUN mkdir -p /opt/scripts 
+RUN mkdir -p /opt/scripts /var/www/html
 
-RUN mkdir -p /var/www/html
-
-ADD ./dist /var/www/html
+ADD dist/ /var/www/html
 
 ADD ./fix-permissions.sh ./install.sh ./passwd.template ./run.sh /opt/scripts/
 
