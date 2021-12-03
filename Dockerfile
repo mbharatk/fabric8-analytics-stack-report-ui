@@ -1,23 +1,49 @@
-FROM registry.access.redhat.com/ubi8/nodejs-14 AS builder 
+FROM registry.centos.org/centos/centos:7
+
+LABEL Codeready dependency analytics
+
 USER 0
-WORKDIR  /tmp/src
-RUN chown -R 1001:0 /tmp/src/
-ADD package.json  /tmp/src/
-ADD package-lock.json /tmp/src/
+
+RUN mkdir -p /opt/scripts /var/www/html
+
+RUN chown -R 1001:0 /var/www/html
+
+ADD ./fix-permissions.sh ./install.sh ./passwd.template ./run.sh /opt/scripts/
+
+RUN chmod -R 777 /opt/scripts && . /opt/scripts/install.sh
+
+RUN yum install -y epel-release
+
+RUN yum install -y npm nodejs
+
+WORKDIR /var/www/html
+
+ADD package.json  /var/www/html
+
+ADD package-lock.json /var/www/html
+
 USER 1001
-RUN npm install phantomjs-prebuilt@2.1.14 --ignore-scripts
-RUN npm install
-ENV PATH="./tmp/src/node_modules/.bin:$PATH"
-ADD . /tmp/src/
+
+ADD . /var/www/html
+
 # Requires root user to build a production build
 USER root
+
+RUN npm install phantomjs-prebuilt@2.1.14 --ignore-scripts
+
+RUN npm install
+
+ENV PATH="./var/www/html/node_modules/.bin:$PATH"
+
 # Create A production build
 RUN npm run build:prod
 
-FROM registry.access.redhat.com/ubi8/nginx-118
+ADD dist /var/www/html
 
-ADD nginx/nginx.conf "${NGINX_CONF_PATH}"
-# if you want to add other configuration add here
-# COPY --from=builder /tmp/src/build ./
-# Start Server
-CMD nginx -g "daemon off;"
+EXPOSE 8080 8443
+
+USER apache
+
+ENTRYPOINT ["/opt/scripts/run.sh"]
+
+CMD ["apache"]
