@@ -1,4 +1,4 @@
-FROM centos/nodejs-10-centos7:latest 
+FROM registry.centos.org/centos/centos:7
 
 LABEL Codeready dependency analytics
 
@@ -12,6 +12,10 @@ ADD ./fix-permissions.sh ./install.sh ./passwd.template ./run.sh /opt/scripts/
 
 RUN chmod -R 777 /opt/scripts && . /opt/scripts/install.sh
 
+RUN yum install -y epel-release
+
+RUN yum install -y npm nodejs
+
 WORKDIR /var/www/html
 
 ADD package.json  /var/www/html
@@ -20,14 +24,14 @@ ADD package-lock.json /var/www/html
 
 USER 1001
 
-RUN npm install
-
-ENV PATH="./var/www/html/node_modules/.bin:$PATH"
-
 ADD . /var/www/html
 
 # Requires root user to build a production build
 USER root
+
+RUN npm install
+
+ENV PATH="./var/www/html/node_modules/.bin:$PATH"
 
 # Create A production build
 RUN npm run build:prod
