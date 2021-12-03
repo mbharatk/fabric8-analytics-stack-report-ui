@@ -38,7 +38,7 @@ ENV PATH="./var/www/html/node_modules/.bin:$PATH"
 # Create A production build
 RUN npm run build:prod
 
-ADD dist /var/www/html
+# ADD dist /var/www/html
 
 EXPOSE 8080 8443
 
