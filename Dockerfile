@@ -14,7 +14,7 @@ RUN chmod -R 777 /opt/scripts && . /opt/scripts/install.sh
 
 RUN yum install -y epel-release
 
-RUN yum install -y npm nodejs
+RUN yum install -y npm nodejs-10
 
 WORKDIR /var/www/html
 
@@ -38,11 +38,11 @@ ENV PATH="./var/www/html/node_modules/.bin:$PATH"
 # Create A production build
 RUN npm run build:prod
 
-ADD dist /var/www/html
+# ADD dist /var/www/html
 
 EXPOSE 8080 8443
 
-USER apache
+USER apache 
 
 ENTRYPOINT ["/opt/scripts/run.sh"]
 
