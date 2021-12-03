@@ -14,7 +14,7 @@ RUN chmod -R 777 /opt/scripts && . /opt/scripts/install.sh
 
 RUN yum install -y epel-release
 
-RUN yum install -y npm nodejs
+RUN yum install -y npm nodejs-10
 
 WORKDIR /var/www/html
 
