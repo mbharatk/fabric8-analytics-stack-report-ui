@@ -40,7 +40,7 @@ ADD dist /var/www/html
 
 EXPOSE 8080 8443
 
-USER apache
+USER apache 
 
 ENTRYPOINT ["/opt/scripts/run.sh"]
 
